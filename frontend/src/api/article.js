@@ -28,3 +28,12 @@ export async function deleteArticle(id) {
   const res = await http.delete(`/articles/${id}`)
   return res.data
 }
+
+export async function uploadImage(file) {
+  const formData = new FormData()
+  formData.append('image', file)
+  const res = await http.post('/upload', formData, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+  return res.data
+}

@@ -3,3 +3,5 @@ dist/
 .DS_Store
 *.log
 backend/data/articles.json
+backend/images/*
+!backend/images/.gitkeep
