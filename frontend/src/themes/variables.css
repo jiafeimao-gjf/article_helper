@@ -1,0 +1,56 @@
+:root,
+[data-theme="default"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-tertiary: #e8e8e8;
+  --text-primary: #333333;
+  --text-secondary: #666666;
+  --accent: #0066cc;
+  --accent-hover: #0052a3;
+  --border: #e0e0e0;
+  --code-bg: #f6f8fa;
+  --blockquote-border: #d0d7de;
+  --blockquote-bg: #f6f8fa;
+}
+
+[data-theme="github"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f6f8fa;
+  --bg-tertiary: #eaeef2;
+  --text-primary: #24292f;
+  --text-secondary: #57606a;
+  --accent: #0969da;
+  --accent-hover: #0550ae;
+  --border: #d0d7de;
+  --code-bg: #f6f8fa;
+  --blockquote-border: #d0d7de;
+  --blockquote-bg: #f6f8fa;
+}
+
+[data-theme="sepia"] {
+  --bg-primary: #f4ecd8;
+  --bg-secondary: #ebe3d0;
+  --bg-tertiary: #e0d4bc;
+  --text-primary: #5c4b37;
+  --text-secondary: #7a6b55;
+  --accent: #b8860b;
+  --accent-hover: #9a7209;
+  --border: #d4c5a9;
+  --code-bg: #ebe3d0;
+  --blockquote-border: #d4c5a9;
+  --blockquote-bg: #ebe3d0;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #252525;
+  --bg-tertiary: #303030;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --accent: #58a6ff;
+  --accent-hover: #79b8ff;
+  --border: #404040;
+  --code-bg: #252525;
+  --blockquote-border: #404040;
+  --blockquote-bg: #252525;
+}

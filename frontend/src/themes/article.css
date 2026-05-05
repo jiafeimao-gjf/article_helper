@@ -1,0 +1,581 @@
+/* ========================================
+   文章主题系统 - 精致设计版
+   每个主题都有独特的背景、标题装饰、列表样式
+======================================== */
+
+/* 默认主题 - 简洁专业 */
+[data-article-theme="default"] {
+  --article-bg: #ffffff;
+  --article-bg-pattern: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 39px,
+    #f0f0f0 39px,
+    #f0f0f0 40px
+  );
+  --article-text: #2c3e50;
+  --article-text-secondary: #7f8c8d;
+  --article-link: #3498db;
+  --article-link-hover: #2980b9;
+  --article-border: #e8e8e8;
+  --article-code-bg: #f8f9fa;
+  --article-code-text: #e74c3c;
+  --article-code-border: #dee2e6;
+  --article-blockquote-border: #3498db;
+  --article-blockquote-bg: #f8f9fa;
+  --article-blockquote-text: #2c3e50;
+  --article-blockquote-icon: "\"";
+  --article-h1-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --article-h1-color: #ffffff;
+  --article-h1-border: none;
+  --article-h1-shadow: 0 2px 10px rgba(102, 126, 234, 0.3);
+  --article-h2-color: #2c3e50;
+  --article-h2-border: 3px solid #3498db;
+  --article-h3-color: #34495e;
+  --article-h4-color: #7f8c8d;
+  --article-list-bullet: "●";
+  --article-list-bullet-color: #3498db;
+  --article-list-bullet-size: 8px;
+  --article-ol-number-color: #3498db;
+  --article-table-header-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --article-table-header-color: #ffffff;
+  --article-table-stripe-bg: #f8f9fa;
+  --article-table-radius: 8px;
+  --article-code-radius: 6px;
+  --article-hr-style: linear-gradient(90deg, #3498db, #9b59b6, #3498db);
+}
+
+/* GitHub 风格 */
+[data-article-theme="github"] {
+  --article-bg: #ffffff;
+  --article-bg-pattern: none;
+  --article-text: #24292f;
+  --article-text-secondary: #57606a;
+  --article-link: #0969da;
+  --article-link-hover: #0550ae;
+  --article-border: #d0d7de;
+  --article-code-bg: #f6f8fa;
+  --article-code-text: #24292f;
+  --article-code-border: #e1e4e8;
+  --article-blockquote-border: #d0d7de;
+  --article-blockquote-bg: #f6f8fa;
+  --article-blockquote-text: #57606a;
+  --article-blockquote-icon: none;
+  --article-h1-bg: none;
+  --article-h1-color: #24292f;
+  --article-h1-border: 3px solid #24292f;
+  --article-h1-shadow: none;
+  --article-h2-color: #24292f;
+  --article-h2-border: 1px solid #d0d7de;
+  --article-h3-color: #24292f;
+  --article-h4-color: #57606a;
+  --article-list-bullet: "-";
+  --article-list-bullet-color: #57606a;
+  --article-list-bullet-size: auto;
+  --article-ol-number-color: #57606a;
+  --article-table-header-bg: #f6f8fa;
+  --article-table-header-color: #24292f;
+  --article-table-stripe-bg: #ffffff;
+  --article-table-radius: 6px;
+  --article-code-radius: 6px;
+  --article-hr-style: #d0d7de;
+}
+
+/* 护眼浅褐色 - 信纸风格 */
+[data-article-theme="sepia"] {
+  --article-bg: #f5f0e6;
+  --article-bg-pattern: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 31px,
+    #d4c9b8 31px,
+    #d4c9b8 32px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 0,
+    transparent 0,
+    transparent 0
+  );
+  --article-text: #5c4b37;
+  --article-text-secondary: #8b7355;
+  --article-link: #b8860b;
+  --article-link-hover: #9a7209;
+  --article-border: #d4c5a9;
+  --article-code-bg: #ebe3d0;
+  --article-code-text: #5c4b37;
+  --article-code-border: #d4c5a9;
+  --article-blockquote-border: #b8860b;
+  --article-blockquote-bg: #f0e6d2;
+  --article-blockquote-text: #6b5a45;
+  --article-blockquote-icon: "✦";
+  --article-h1-bg: none;
+  --article-h1-color: #3d2e1f;
+  --article-h1-border: 2px dotted #8b7355;
+  --article-h1-shadow: none;
+  --article-h2-color: #4a3828;
+  --article-h2-border: 1px solid #c9b896;
+  --article-h3-color: #5c4b37;
+  --article-h4-color: #7a6b55;
+  --article-list-bullet: "◦";
+  --article-list-bullet-color: #b8860b;
+  --article-list-bullet-size: 10px;
+  --article-ol-number-color: #b8860b;
+  --article-table-header-bg: #e8dcc8;
+  --article-table-header-color: #3d2e1f;
+  --article-table-stripe-bg: #f0e6d2;
+  --article-table-radius: 0;
+  --article-code-radius: 0;
+  --article-hr-style: #c9b896;
+}
+
+/* 深色模式 */
+[data-article-theme="dark"] {
+  --article-bg: #0d1117;
+  --article-bg-pattern: radial-gradient(
+    circle at 1px 1px,
+    #1f2933 1px,
+    transparent 0
+  );
+  --article-bg-pattern-size: 24px;
+  --article-text: #c9d1d9;
+  --article-text-secondary: #8b949e;
+  --article-link: #58a6ff;
+  --article-link-hover: #79c0ff;
+  --article-border: #30363d;
+  --article-code-bg: #161b22;
+  --article-code-text: #f0883e;
+  --article-code-border: #30363d;
+  --article-blockquote-border: #58a6ff;
+  --article-blockquote-bg: #161b22;
+  --article-blockquote-text: #c9d1d9;
+  --article-blockquote-icon: none;
+  --article-h1-bg: linear-gradient(135deg, #238636 0%, #1f6feb 100%);
+  --article-h1-color: #ffffff;
+  --article-h1-border: none;
+  --article-h1-shadow: 0 4px 20px rgba(31, 111, 235, 0.4);
+  --article-h2-color: #f0f6fc;
+  --article-h2-border: 2px solid #238636;
+  --article-h3-color: #c9d1d9;
+  --article-h4-color: #8b949e;
+  --article-list-bullet: "▸";
+  --article-list-bullet-color: #58a6ff;
+  --article-list-bullet-size: auto;
+  --article-ol-number-color: #58a6ff;
+  --article-table-header-bg: #161b22;
+  --article-table-header-color: #f0f6fc;
+  --article-table-stripe-bg: #0d1117;
+  --article-table-radius: 0;
+  --article-code-radius: 0;
+  --article-hr-style: #30363d;
+}
+
+/* 学术论文风格 */
+[data-article-theme="academic"] {
+  --article-bg: #fefefe;
+  --article-bg-pattern: none;
+  --article-text: #2c2c2c;
+  --article-text-secondary: #5c5c5c;
+  --article-link: #1a5f7a;
+  --article-link-hover: #0d3d4d;
+  --article-border: #c8c8c8;
+  --article-code-bg: #f5f5f5;
+  --article-code-text: #2c2c2c;
+  --article-code-border: #d0d0d0;
+  --article-blockquote-border: #1a5f7a;
+  --article-blockquote-bg: #f0f7f9;
+  --article-blockquote-text: #3d6b7a;
+  --article-blockquote-icon: none;
+  --article-h1-bg: none;
+  --article-h1-color: #1a1a1a;
+  --article-h1-border: 3px double #2c2c2c;
+  --article-h1-shadow: none;
+  --article-h2-color: #2c2c2c;
+  --article-h2-border: 1px solid #2c2c2c;
+  --article-h3-color: #3c3c3c;
+  --article-h4-color: #5c5c5c;
+  --article-list-bullet: "–";
+  --article-list-bullet-color: #5c5c5c;
+  --article-list-bullet-size: auto;
+  --article-ol-number-color: #5c5c5c;
+  --article-table-header-bg: #f0f0f0;
+  --article-table-header-color: #2c2c2c;
+  --article-table-stripe-bg: #fafafa;
+  --article-table-radius: 0;
+  --article-code-radius: 0;
+  --article-hr-style: #c8c8c8;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* 极简风格 */
+[data-article-theme="minimal"] {
+  --article-bg: #fafafa;
+  --article-bg-pattern: none;
+  --article-text: #1a1a1a;
+  --article-text-secondary: #666666;
+  --article-link: #000000;
+  --article-link-hover: #333333;
+  --article-border: #e0e0e0;
+  --article-code-bg: #ffffff;
+  --article-code-text: #1a1a1a;
+  --article-code-border: #e0e0e0;
+  --article-blockquote-border: #1a1a1a;
+  --article-blockquote-bg: #ffffff;
+  --article-blockquote-text: #666666;
+  --article-blockquote-icon: none;
+  --article-h1-bg: none;
+  --article-h1-color: #000000;
+  --article-h1-border: none;
+  --article-h1-shadow: none;
+  --article-h2-color: #1a1a1a;
+  --article-h2-border: none;
+  --article-h3-color: #333333;
+  --article-h4-color: #666666;
+  --article-list-bullet: "·";
+  --article-list-bullet-color: #999999;
+  --article-list-bullet-size: 12px;
+  --article-ol-number-color: #999999;
+  --article-table-header-bg: #ffffff;
+  --article-table-header-color: #1a1a1a;
+  --article-table-stripe-bg: #fafafa;
+  --article-table-radius: 0;
+  --article-code-radius: 0;
+  --article-hr-style: #e0e0e0;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+}
+
+/* 复古打字机风格 */
+[data-article-theme="typewriter"] {
+  --article-bg: #f5f5dc;
+  --article-bg-pattern: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 24px,
+    #d4c4a8 24px,
+    #d4c4a8 25px
+  );
+  --article-text: #2f2f2f;
+  --article-text-secondary: #5c5c5c;
+  --article-link: #8b4513;
+  --article-link-hover: #a0522d;
+  --article-border: #d4c4a8;
+  --article-code-bg: #e8e0c8;
+  --article-code-text: #4a4a4a;
+  --article-code-border: #d4c4a8;
+  --article-blockquote-border: #8b4513;
+  --article-blockquote-bg: #ede8d0;
+  --article-blockquote-text: #5c4a3a;
+  --article-blockquote-icon: ">";
+  --article-h1-bg: none;
+  --article-h1-color: #2f2f2f;
+  --article-h1-border: 2px dotted #d4c4a8;
+  --article-h1-shadow: none;
+  --article-h2-color: #3a3a3a;
+  --article-h2-border: 1px dotted #d4c4a8;
+  --article-h3-color: #4a4a4a;
+  --article-h4-color: #5c5c5c;
+  --article-list-bullet: ">";
+  --article-list-bullet-color: #8b4513;
+  --article-list-bullet-size: auto;
+  --article-ol-number-color: #8b4513;
+  --article-table-header-bg: #ede8d0;
+  --article-table-header-color: #2f2f2f;
+  --article-table-stripe-bg: #f5f5dc;
+  --article-table-radius: 0;
+  --article-code-radius: 0;
+  --article-hr-style: #d4c4a8;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 15px;
+}
+
+/* 森林自然风格 */
+[data-article-theme="forest"] {
+  --article-bg: #f0f7f0;
+  --article-bg-pattern: radial-gradient(
+    circle at 2px 2px,
+    #c8e6c8 1px,
+    transparent 0
+  );
+  --article-bg-pattern-size: 32px;
+  --article-text: #2d4a2d;
+  --article-text-secondary: #5a7a5a;
+  --article-link: #2e7d32;
+  --article-link-hover: #1b5e20;
+  --article-border: #a8d5a8;
+  --article-code-bg: #e8f5e8;
+  --article-code-text: #1b5e20;
+  --article-code-border: #c8e6c8;
+  --article-blockquote-border: #4caf50;
+  --article-blockquote-bg: linear-gradient(135deg, #e8f5e8 0%, #c8e6c8 100%);
+  --article-blockquote-text: #1b5e20;
+  --article-blockquote-icon: "❋";
+  --article-h1-bg: linear-gradient(135deg, #2e7d32 0%, #4caf50 50%, #81c784 100%);
+  --article-h1-color: #ffffff;
+  --article-h1-border: none;
+  --article-h1-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+  --article-h2-color: #1b5e20;
+  --article-h2-border: 2px solid #4caf50;
+  --article-h3-color: #2e7d32;
+  --article-h4-color: #388e3c;
+  --article-list-bullet: "✦";
+  --article-list-bullet-color: #4caf50;
+  --article-list-bullet-size: 10px;
+  --article-ol-number-color: #4caf50;
+  --article-table-header-bg: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+  --article-table-header-color: #ffffff;
+  --article-table-stripe-bg: #e8f5e8;
+  --article-table-radius: 8px;
+  --article-code-radius: 6px;
+  --article-hr-style: linear-gradient(90deg, #4caf50, #81c784, #4caf50);
+}
+
+/* 海洋蓝色风格 */
+[data-article-theme="ocean"] {
+  --article-bg: #e8f4f8;
+  --article-bg-pattern: radial-gradient(
+    circle at 1px 1px,
+    #b8d4e3 1px,
+    transparent 0
+  );
+  --article-bg-pattern-size: 28px;
+  --article-text: #1a3a4a;
+  --article-text-secondary: #4a6a7a;
+  --article-link: #0077b6;
+  --article-link-hover: #005f8a;
+  --article-border: #b8d4e3;
+  --article-code-bg: #d4e8f0;
+  --article-code-text: #023e58;
+  --article-code-border: #b8d4e3;
+  --article-blockquote-border: #0077b6;
+  --article-blockquote-bg: linear-gradient(135deg, #d4e8f0 0%, #b8d4e3 100%);
+  --article-blockquote-text: #023e58;
+  --article-blockquote-icon: "◆";
+  --article-h1-bg: linear-gradient(135deg, #0077b6 0%, #00a8e8 50%, #0077b6 100%);
+  --article-h1-color: #ffffff;
+  --article-h1-border: none;
+  --article-h1-shadow: 0 4px 15px rgba(0, 119, 182, 0.3);
+  --article-h2-color: #023e58;
+  --article-h2-border: 2px solid #00a8e8;
+  --article-h3-color: #0077b6;
+  --article-h4-color: #4a6a7a;
+  --article-list-bullet: "◆";
+  --article-list-bullet-color: #0077b6;
+  --article-list-bullet-size: 8px;
+  --article-ol-number-color: #0077b6;
+  --article-table-header-bg: linear-gradient(135deg, #0077b6 0%, #00a8e8 100%);
+  --article-table-header-color: #ffffff;
+  --article-table-stripe-bg: #d4e8f0;
+  --article-table-radius: 8px;
+  --article-code-radius: 6px;
+  --article-hr-style: linear-gradient(90deg, #0077b6, #00a8e8, #0077b6);
+}
+
+/* 樱花日式风格 */
+[data-article-theme="sakura"] {
+  --article-bg: #fff5f5;
+  --article-bg-pattern: radial-gradient(
+    circle at 3px 3px,
+    #f8bbd0 1px,
+    transparent 0
+  );
+  --article-bg-pattern-size: 48px;
+  --article-text: #4a3a3a;
+  --article-text-secondary: #7a5a5a;
+  --article-link: #c2185b;
+  --article-link-hover: #ad1457;
+  --article-border: #f0d4d4;
+  --article-code-bg: #fce4ec;
+  --article-code-text: #880e4f;
+  --article-code-border: #f8bbd0;
+  --article-blockquote-border: #e91e63;
+  --article-blockquote-bg: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+  --article-blockquote-text: #880e4f;
+  --article-blockquote-icon: "❀";
+  --article-h1-bg: linear-gradient(135deg, #e91e63 0%, #f48fb1 50%, #e91e63 100%);
+  --article-h1-color: #ffffff;
+  --article-h1-border: none;
+  --article-h1-shadow: 0 4px 15px rgba(233, 30, 99, 0.3);
+  --article-h2-color: #ad1457;
+  --article-h2-border: 2px solid #f48fb1;
+  --article-h3-color: #c2185b;
+  --article-h4-color: #e91e63;
+  --article-list-bullet: "❀";
+  --article-list-bullet-color: #e91e63;
+  --article-list-bullet-size: 10px;
+  --article-ol-number-color: #e91e63;
+  --article-table-header-bg: linear-gradient(135deg, #e91e63 0%, #f48fb1 100%);
+  --article-table-header-color: #ffffff;
+  --article-table-stripe-bg: #fce4ec;
+  --article-table-radius: 12px;
+  --article-code-radius: 8px;
+  --article-hr-style: linear-gradient(90deg, #e91e63, #f48fb1, #e91e63);
+}
+
+/* 霓虹赛博朋克风格 */
+[data-article-theme="cyberpunk"] {
+  --article-bg: #0a0a0f;
+  --article-bg-pattern: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 255, 255, 0.03) 2px,
+    rgba(0, 255, 255, 0.03) 4px
+  ),
+  repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 0, 255, 0.03) 2px,
+    rgba(255, 0, 255, 0.03) 4px
+  );
+  --article-text: #f0f0f0;
+  --article-text-secondary: #00ff9d;
+  --article-link: #ff00ff;
+  --article-link-hover: #00ffff;
+  --article-border: #1a1a2e;
+  --article-code-bg: #1a1a2e;
+  --article-code-text: #00ff9d;
+  --article-code-border: #ff00ff;
+  --article-blockquote-border: #ff00ff;
+  --article-blockquote-bg: rgba(255, 0, 255, 0.1);
+  --article-blockquote-text: #ff00ff;
+  --article-blockquote-icon: "//";
+  --article-h1-bg: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
+  --article-h1-color: #0a0a0f;
+  --article-h1-border: none;
+  --article-h1-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffff;
+  --article-h2-color: #00ffff;
+  --article-h2-border: 1px solid #ff00ff;
+  --article-h3-color: #ffff00;
+  --article-h4-color: #00ff9d;
+  --article-list-bullet: "►";
+  --article-list-bullet-color: #ff00ff;
+  --article-list-bullet-size: auto;
+  --article-ol-number-color: #00ffff;
+  --article-table-header-bg: linear-gradient(90deg, #ff00ff, #00ffff);
+  --article-table-header-color: #0a0a0f;
+  --article-table-stripe-bg: rgba(0, 255, 255, 0.05);
+  --article-table-radius: 0;
+  --article-code-radius: 0;
+  --article-hr-style: linear-gradient(90deg, #ff00ff, #00ffff, #ff00ff);
+  font-family: 'Consolas', 'Monaco', monospace;
+}
+
+/* 羊皮纸古典风格 */
+[data-article-theme="parchment"] {
+  --article-bg: #f5e6c8;
+  --article-bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9b896' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  --article-text: #3d2914;
+  --article-text-secondary: #6b5344;
+  --article-link: #8b0000;
+  --article-link-hover: #a52a2a;
+  --article-border: #c9b896;
+  --article-code-bg: #e8dcc8;
+  --article-code-text: #3d2914;
+  --article-code-border: #c9b896;
+  --article-blockquote-border: #8b4513;
+  --article-blockquote-bg: #ede0c8;
+  --article-blockquote-text: #5c3a1a;
+  --article-blockquote-icon: "❧";
+  --article-h1-bg: none;
+  --article-h1-color: #3d2914;
+  --article-h1-border: 3px double #8b4513;
+  --article-h1-shadow: none;
+  --article-h2-color: #4a3020;
+  --article-h2-border: 1px solid #c9b896;
+  --article-h3-color: #5c3a1a;
+  --article-h4-color: #6b5344;
+  --article-list-bullet: "➤";
+  --article-list-bullet-color: #8b4513;
+  --article-list-bullet-size: auto;
+  --article-ol-number-color: #8b4513;
+  --article-table-header-bg: #ede0c8;
+  --article-table-header-color: #3d2914;
+  --article-table-stripe-bg: #f5e6c8;
+  --article-table-radius: 0;
+  --article-code-radius: 0;
+  --article-hr-style: #c9b896;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* 现代杂志风格 */
+[data-article-theme="magazine"] {
+  --article-bg: #ffffff;
+  --article-bg-pattern: none;
+  --article-text: #1a1a1a;
+  --article-text-secondary: #666666;
+  --article-link: #e63946;
+  --article-link-hover: #d62839;
+  --article-border: #e0e0e0;
+  --article-code-bg: #f8f8f8;
+  --article-code-text: #1a1a1a;
+  --article-code-border: #e0e0e0;
+  --article-blockquote-border: #e63946;
+  --article-blockquote-bg: #fff5f5;
+  --article-blockquote-text: #c41e3a;
+  --article-blockquote-icon: none;
+  --article-h1-bg: none;
+  --article-h1-color: #1a1a1a;
+  --article-h1-border: none;
+  --article-h1-shadow: 4px 4px 0 #e63946;
+  --article-h2-color: #1a1a1a;
+  --article-h2-border: 4px solid #e63946;
+  --article-h3-color: #e63946;
+  --article-h4-color: #666666;
+  --article-list-bullet: "—";
+  --article-list-bullet-color: #e63946;
+  --article-list-bullet-size: auto;
+  --article-ol-number-color: #e63946;
+  --article-table-header-bg: #1a1a1a;
+  --article-table-header-color: #ffffff;
+  --article-table-stripe-bg: #f8f8f8;
+  --article-table-radius: 0;
+  --article-code-radius: 0;
+  --article-hr-style: #e63946;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+/* 薄荷清新风格 */
+[data-article-theme="mint"] {
+  --article-bg: #f0fff4;
+  --article-bg-pattern: radial-gradient(
+    circle at 1px 1px,
+    #c6f6d5 1px,
+    transparent 0
+  );
+  --article-bg-pattern-size: 20px;
+  --article-text: #2d3748;
+  --article-text-secondary: #718096;
+  --article-link: #319795;
+  --article-link-hover: #276749;
+  --article-border: #c6f6d5;
+  --article-code-bg: #e6fffa;
+  --article-code-text: #234e52;
+  --article-code-border: #b2f5ea;
+  --article-blockquote-border: #319795;
+  --article-blockquote-bg: linear-gradient(135deg, #e6fffa 0%, #b2f5ea 100%);
+  --article-blockquote-text: #234e52;
+  --article-blockquote-icon: "✓";
+  --article-h1-bg: linear-gradient(135deg, #319795 0%, #38b2ac 50%, #319795 100%);
+  --article-h1-color: #ffffff;
+  --article-h1-border: none;
+  --article-h1-shadow: 0 4px 15px rgba(49, 151, 149, 0.3);
+  --article-h2-color: #234e52;
+  --article-h2-border: 2px solid #38b2ac;
+  --article-h3-color: #319795;
+  --article-h4-color: #4a5568;
+  --article-list-bullet: "✓";
+  --article-list-bullet-color: #319795;
+  --article-list-bullet-size: 10px;
+  --article-ol-number-color: #319795;
+  --article-table-header-bg: linear-gradient(135deg, #319795 0%, #38b2ac 100%);
+  --article-table-header-color: #ffffff;
+  --article-table-stripe-bg: #e6fffa;
+  --article-table-radius: 8px;
+  --article-code-radius: 6px;
+  --article-hr-style: linear-gradient(90deg, #319795, #38b2ac, #319795);
+}
