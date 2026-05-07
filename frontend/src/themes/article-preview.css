@@ -12,6 +12,16 @@
   font-size: var(--article-font-size, 16px);
   line-height: 1.8;
   padding: 32px 40px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* 手机窄屏 - 全宽 */
+@media (max-width: 768px) {
+  .article-theme-wrapper {
+    max-width: 100%;
+    padding: 20px 16px;
+  }
 }
 
 /* 标题样式 */
@@ -47,9 +57,10 @@
   margin-right: -24px;
   padding-left: 24px;
   padding-right: 24px;
+  text-align: left;
 }
 
-/* H2 - 二级标题 */
+/* H2 - 二级标题（居中） */
 .article-theme-wrapper h2 {
   font-size: 1.5em;
   color: var(--article-h2-color);
@@ -59,29 +70,33 @@
   background: linear-gradient(90deg, rgba(128,128,128,0.05) 0%, transparent 100%);
   margin-left: -16px;
   padding-left: 20px;
+  text-align: center;
 }
 
-/* H3 - 三级标题 */
+/* H3 - 三级标题（左对齐） */
 .article-theme-wrapper h3 {
   font-size: 1.25em;
   color: var(--article-h3-color);
   padding-bottom: 4px;
   border-bottom: 2px solid var(--article-h3-color);
   display: inline-block;
+  text-align: left;
 }
 
-/* H4 - 四级标题 */
+/* H4 - 四级标题（左对齐） */
 .article-theme-wrapper h4 {
   font-size: 1.1em;
   color: var(--article-h4-color);
   font-weight: 600;
+  text-align: left;
 }
 
-/* H5-H6 */
+/* H5-H6（左对齐） */
 .article-theme-wrapper h5,
 .article-theme-wrapper h6 {
   font-size: 1em;
   color: var(--article-text-secondary);
+  text-align: left;
 }
 
 /* 段落 */

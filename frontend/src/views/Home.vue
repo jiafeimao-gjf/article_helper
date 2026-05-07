@@ -2,6 +2,13 @@
   <div class="home" :data-theme="theme">
     <div class="toolbar">
       <div class="toolbar-left">
+        <select v-model="selectedArticleId" @change="handleArticleSelect" class="article-select">
+          <option value="">+ 新建文章</option>
+          <option v-for="article in store.articles" :key="article.id" :value="article.id">
+            {{ article.title || '无标题' }}
+          </option>
+        </select>
+        <button v-if="articleId" @click="handleDelete" class="delete-btn" title="删除文章">×</button>
         <input
           v-model="title"
           class="title-input"
@@ -32,13 +39,14 @@
 
 <script setup>
 import { ref, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { useArticleStore } from '../stores/article.js'
 import Editor from '../components/Editor.vue'
 import Preview from '../components/Preview.vue'
 import ThemeSelector from '../components/ThemeSelector.vue'
 
 const route = useRoute()
+const router = useRouter()
 const store = useArticleStore()
 
 const title = ref('')
@@ -46,36 +54,52 @@ const content = ref('')
 const theme = ref('default')
 const articleId = ref(null)
 const saving = ref(false)
+const selectedArticleId = ref('')
 
 onMounted(async () => {
+  await store.fetchArticles()
   const id = route.params.id
   if (id) {
-    articleId.value = id
-    const article = await store.fetchArticle(id)
-    if (article) {
-      title.value = article.title
-      content.value = article.content
-      theme.value = article.theme
-    }
+    selectedArticleId.value = id
+    await loadArticle(id)
   }
 })
 
 watch(() => route.params.id, async (newId) => {
   if (newId) {
-    articleId.value = newId
-    const article = await store.fetchArticle(newId)
-    if (article) {
-      title.value = article.title
-      content.value = article.content
-      theme.value = article.theme
-    }
+    selectedArticleId.value = newId
+    await loadArticle(newId)
   } else {
-    articleId.value = null
-    title.value = ''
-    content.value = ''
-    theme.value = 'default'
+    selectedArticleId.value = ''
+    resetEditor()
   }
 })
+
+async function handleArticleSelect() {
+  const id = selectedArticleId.value
+  if (id) {
+    router.push(`/edit/${id}`)
+  } else {
+    router.push('/')
+  }
+}
+
+async function loadArticle(id) {
+  const article = await store.fetchArticle(id)
+  if (article) {
+    title.value = article.title
+    content.value = article.content
+    theme.value = article.theme
+    articleId.value = article.id
+  }
+}
+
+function resetEditor() {
+  articleId.value = null
+  title.value = ''
+  content.value = ''
+  theme.value = 'default'
+}
 
 async function handleSave() {
   if (!title.value.trim() || !content.value.trim()) {
@@ -90,6 +114,9 @@ async function handleSave() {
       theme: theme.value
     })
     articleId.value = article.id
+    selectedArticleId.value = article.id
+    await store.fetchArticles()
+    router.push(`/edit/${article.id}`)
   } finally {
     saving.value = false
   }
@@ -107,8 +134,23 @@ async function handleUpdate() {
       content: content.value,
       theme: theme.value
     })
+    await store.fetchArticles()
   } finally {
     saving.value = false
+  }
+}
+
+async function handleDelete() {
+  if (!articleId.value) return
+  if (!confirm('确定要删除这篇文章吗？')) return
+
+  try {
+    await store.deleteArticle(articleId.value)
+    selectedArticleId.value = ''
+    resetEditor()
+    router.push('/')
+  } catch (e) {
+    alert('删除失败')
   }
 }
 </script>
@@ -128,17 +170,50 @@ async function handleUpdate() {
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border);
   gap: 16px;
+  flex-wrap: wrap;
 }
 
 .toolbar-left {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 16px;
   flex: 1;
+  flex-wrap: wrap;
+}
+
+.article-select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 14px;
+  min-width: 150px;
+  max-width: 250px;
+  cursor: pointer;
+}
+
+.article-select:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.delete-btn {
+  padding: 6px 12px;
+  background: #dc3545;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.delete-btn:hover {
+  background: #c82333;
 }
 
 .title-input {
-  max-width: 300px;
+  max-width: 250px;
   font-size: 16px;
   font-weight: 500;
 }
@@ -167,5 +242,37 @@ async function handleUpdate() {
 
 .editor-pane {
   border-right: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar-left {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .article-select,
+  .title-input {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .editor-container {
+    flex-direction: column;
+  }
+
+  .editor-pane {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    flex: 1;
+  }
+
+  .preview-pane {
+    flex: 1;
+  }
 }
 </style>
