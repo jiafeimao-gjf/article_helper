@@ -17,7 +17,11 @@
         <ThemeSelector v-model="theme" />
       </div>
       <div class="toolbar-right">
-        <span v-if="articleId" class="status">文章 ID: {{ articleId }}</span>
+        <span v-if="articleId" class="status">
+          <span v-if="saving">保存中...</span>
+          <span v-else-if="lastSaved">已保存 {{ formatTime(lastSaved) }}</span>
+          <span v-else>已保存</span>
+        </span>
         <button v-if="!articleId" @click="handleSave" :disabled="saving">
           {{ saving ? '保存中...' : '保存文章' }}
         </button>
@@ -38,7 +42,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useArticleStore } from '../stores/article.js'
 import Editor from '../components/Editor.vue'
@@ -55,6 +59,47 @@ const theme = ref('default')
 const articleId = ref(null)
 const saving = ref(false)
 const selectedArticleId = ref('')
+const autoSaveTimer = ref(null)
+const lastSaved = ref(null)
+const hasChanges = ref(false)
+
+// 监听变化，触发自动保存
+watch([title, content, theme], () => {
+  if (articleId.value) {
+    hasChanges.value = true
+    scheduleAutoSave()
+  }
+})
+
+function scheduleAutoSave() {
+  if (autoSaveTimer.value) {
+    clearTimeout(autoSaveTimer.value)
+  }
+  autoSaveTimer.value = setTimeout(() => {
+    if (hasChanges.value && articleId.value) {
+      autoSave()
+    }
+  }, 2000) // 2秒后自动保存
+}
+
+async function autoSave() {
+  if (!title.value.trim() || !content.value.trim() || saving.value) return
+
+  saving.value = true
+  try {
+    await store.updateArticle(articleId.value, {
+      title: title.value,
+      content: content.value,
+      theme: theme.value
+    })
+    hasChanges.value = false
+    lastSaved.value = new Date()
+  } catch (e) {
+    console.error('Auto-save failed:', e)
+  } finally {
+    saving.value = false
+  }
+}
 
 onMounted(async () => {
   await store.fetchArticles()
@@ -91,14 +136,29 @@ async function loadArticle(id) {
     content.value = article.content
     theme.value = article.theme
     articleId.value = article.id
+    lastSaved.value = new Date(article.updatedAt)
+    hasChanges.value = false
   }
 }
 
+function formatTime(date) {
+  const now = new Date()
+  const diff = Math.floor((now - date) / 1000)
+  if (diff < 60) return `${diff}秒前`
+  if (diff < 3600) return `${Math.floor(diff / 60)}分钟前`
+  return date.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })
+}
+
 function resetEditor() {
+  if (autoSaveTimer.value) {
+    clearTimeout(autoSaveTimer.value)
+  }
   articleId.value = null
   title.value = ''
   content.value = ''
   theme.value = 'default'
+  lastSaved.value = null
+  hasChanges.value = false
 }
 
 async function handleSave() {
@@ -115,6 +175,8 @@ async function handleSave() {
     })
     articleId.value = article.id
     selectedArticleId.value = article.id
+    lastSaved.value = new Date()
+    hasChanges.value = false
     await store.fetchArticles()
     router.push(`/edit/${article.id}`)
   } finally {
